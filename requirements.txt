@@ -1,2 +1,3 @@
+google-auth
 gradio
 requests
