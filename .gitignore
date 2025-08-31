@@ -1,0 +1,4 @@
+.gradio/
+.venv/
+.vscode/
+.env
