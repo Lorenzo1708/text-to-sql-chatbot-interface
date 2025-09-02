@@ -17,13 +17,18 @@ def chat(
     if not url:
         raise Exception("Missing URL environment variable.")
 
-    return requests.post(
-        f"{url}/api/v1/chat",
-        json={"model": model, "message": message, "history": history},
-        headers={"Authorization": f"Bearer {id_token.fetch_id_token(Request(), url)}"}
-        if url != "http://server:8080"
-        else None,
-    ).json()["content"]
+    try:
+        return requests.post(
+            f"{url}/api/v1/chat",
+            json={"model": model, "message": message, "history": history},
+            headers={
+                "Authorization": f"Bearer {id_token.fetch_id_token(Request(), url)}"
+            }
+            if url != "http://server:8080"
+            else None,
+        ).json()["content"]
+    except Exception:
+        return "Error."
 
 
 chat_interface = gr.ChatInterface(
